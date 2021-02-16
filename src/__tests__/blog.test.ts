@@ -4,7 +4,7 @@ import { newApp } from "../app";
 
 const app = newApp();
 
-describe("CRUD operations on blog routes", () => {
+describe("tests for blog.controller.ts", () => {
   beforeAll(async () => {
     await db.migrate.latest();
     await db.seed.run();
@@ -15,31 +15,23 @@ describe("CRUD operations on blog routes", () => {
     await db.destroy();
   });
 
-  it("get /blogs returns titles of all blogs in array", () => {
-    return request(app)
-      .get("/blogs")
-      .expect(200, [
-        "Blog Post One",
-        "Blog Post Two",
-        "Blog Post Three"
-      ]);
+  it("GET /blogs returns titles of all blogs in array", () => {
+    return request(app).get("/blogs").expect(200, ["Blog Post One", "Blog Post Two", "Blog Post Three"]);
   });
 
-  it("get /blogs/1 returns title of first blog", () => {
-    return request(app)
-      .get("/blogs/1")
-      .expect(200, "Blog Post One");
+  it("GET /blogs/1 returns title of first blog", () => {
+    return request(app).get("/blogs/1").expect(200, "Blog Post One");
   });
 
-  it("post /blogs adds blog to db and returns added blog title", () => {
+  it("POST /blogs adds blog to db and returns added blog title", () => {
     return request(app)
       .post("/blogs")
-      .expect("Content-Type", "application/json; charset=utf-8")
+      .set("Accept", "application/json")
       .send({
-        title: "Blog Post Four",
+        title: "Blog Post Three",
         author: "Bobby",
-        content: "This is the fourth blog."
+        content: "This is the third blog.",
       })
-      .expect(200, "Blog Post Four");
+      .expect(200, "Blog Post Three");
   });
 });

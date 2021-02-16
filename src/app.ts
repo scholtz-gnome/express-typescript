@@ -2,7 +2,6 @@ import * as express from "express";
 import { Express, Request, Response } from "express";
 import * as bodyParser from "body-parser";
 import * as compression from "compression";
-import db from "./db/db.connection";
 import blogRouter from "./blog/blog.router";
 
 export function newApp(): Express {
@@ -16,6 +15,6 @@ export function newApp(): Express {
   });
 
   app.use("/blogs", blogRouter);
-  
+
   return app;
 }

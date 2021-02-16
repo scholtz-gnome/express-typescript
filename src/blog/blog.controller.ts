@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
+import { Blog } from "./blog.interface";
 import db from "../db/db.connection";
 
 export const blogs_get = async (_, res: Response) => {
   const blogs = await db("blog").select("title");
-  res.send(blogs.map(blog => blog.title));
+  res.send(blogs.map((blog) => blog.title));
 };
 
 export const blog_get = async (req: Request, res: Response) => {
@@ -12,6 +13,8 @@ export const blog_get = async (req: Request, res: Response) => {
 };
 
 export const create_blog_post = async (req: Request, res: Response) => {
-  const blog = await db("blog").insert(req.body, [req.body.id]);
-  res.send(blog);
-}
+  const blog: Blog = await db("blog")
+    .insert(req.body)
+    .returning(["title", "author", "content"]);
+  res.send(blog[0].title);
+};
