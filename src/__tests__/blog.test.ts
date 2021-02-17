@@ -28,10 +28,19 @@ describe("tests for blog.controller.ts", () => {
       .post("/blogs")
       .set("Accept", "application/json")
       .send({
-        title: "Blog Post Three",
+        title: "Blog Post Four",
         author: "Bobby",
-        content: "This is the third blog.",
+        content: "This is the fourth blog.",
       })
-      .expect(200, "Blog Post Three");
+      .expect(201, "Blog Post Four");
+  });
+
+  it("PATCH /blogs/1 updates first blog by changing content", () => {
+    return request(app)
+      .patch("/blogs/1")
+      .send({
+        content: "This first blog has been updated!"
+      })
+      .expect(200, "This first blog has been updated!");
   });
 });
