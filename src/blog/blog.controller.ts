@@ -23,3 +23,8 @@ export const update_blog_patch = async (req: Request, res: Response) => {
   const blog: Blog = await db("blog").where("id", req.params.id).update(req.body).returning(["content"]);
   res.send(blog[0].content);
 }
+
+export const delete_blog = async (req: Request, res: Response) => {
+  const blog: Blog = await db("blog").where("id", req.params.id).delete().returning(["title"]);
+  res.send(`${blog[0].title} DELETED`);
+}

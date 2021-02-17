@@ -15,15 +15,15 @@ describe("tests for blog.controller.ts", () => {
     await db.destroy();
   });
 
-  it("GET /blogs returns titles of all blogs in array", () => {
+  it("GET /blogs reads titles of all blogs in array", () => {
     return request(app).get("/blogs").expect(200, ["Blog Post One", "Blog Post Two", "Blog Post Three"]);
   });
 
-  it("GET /blogs/1 returns title of first blog", () => {
+  it("GET /blogs/1 reads title of first blog", () => {
     return request(app).get("/blogs/1").expect(200, "Blog Post One");
   });
 
-  it("POST /blogs adds blog to db and returns added blog title", () => {
+  it("POST /blogs creates blog in db and returns added blog title", () => {
     return request(app)
       .post("/blogs")
       .set("Accept", "application/json")
@@ -42,5 +42,11 @@ describe("tests for blog.controller.ts", () => {
         content: "This first blog has been updated!"
       })
       .expect(200, "This first blog has been updated!");
+  });
+
+  it("DELETE /blogs/4 deletes fourth blog", () => {
+    return request(app)
+      .delete("/blogs/4")
+      .expect(200, "Blog Post Four DELETED");
   });
 });
