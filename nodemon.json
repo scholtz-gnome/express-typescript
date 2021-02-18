@@ -1,4 +1,4 @@
 {
   "ext": "ts",
-  "exec": "sudo tsc && sudo node build/server.js"
+  "exec": "tsc && node build/server.js"
 }
