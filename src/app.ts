@@ -11,7 +11,7 @@ export function newApp(): Express {
   app.use(bodyParser.json());
 
   app.get("/", (_, res: Response) => {
-    res.send("Hello World!");
+    res.send("Hello World");
   });
 
   app.use("/blogs", blogRouter);

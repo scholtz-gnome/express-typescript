@@ -3,7 +3,7 @@ import * as http from "http";
 import * as config from "./config";
 
 const app = newApp();
-const port = config.port;
+const port = config.PORT || 3000;
 
 http.createServer({}, app).listen(port, () => {
   console.log(`Listening for requests on port ${port}`);
